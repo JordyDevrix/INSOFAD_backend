@@ -13,11 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @RestController
@@ -74,30 +76,31 @@ public class AuthController {
         return ResponseEntity.ok(loginResponse);
     }
 
-//    WTF IS DIT????
 
-//    @PostMapping("/login")
-//    public ResponseEntity<LoginResponse> login(@RequestBody AuthenticationDTO body) {
-//        try {
-//            UsernamePasswordAuthenticationToken authInputToken =
-//                    new UsernamePasswordAuthenticationToken(body.email, body.password);
-//
-//            authManager.authenticate(authInputToken);
-//
-//            String token = jwtUtil.generateToken(body.email);
-//
-//            Customer customer = this.customerRepository.findByEmail(body.email);
-//            LoginResponse loginResponse = new LoginResponse(customer.getEmail(), token);
-//
-//
-//            return ResponseEntity.ok(loginResponse);
-//
-//        } catch (AuthenticationException authExc) {
-//            throw new ResponseStatusException(
-//                    HttpStatus.FORBIDDEN, "No valid credentials"
-//            );
-//        }
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody AuthenticationDTO body) {
+        try {
+            UsernamePasswordAuthenticationToken authInputToken =
+                    new UsernamePasswordAuthenticationToken(body.email, body.password);
+
+            authManager.authenticate(authInputToken);
+
+            String token = jwtUtil.generateToken(body.email);
+
+            Customer customer = this.customerRepository.findByEmail(body.email);
+            LoginResponse loginResponse = new LoginResponse(customer.getEmail(), token);
+
+
+            return ResponseEntity.ok(loginResponse);
+
+        } catch (AuthenticationException authExc) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN, "No valid credentials"
+            );
+        }
+    }
+
+//    WTF IS DIT????
 
 //    @GetMapping("/logout")
 //    public ResponseEntity<String> logout(HttpSession session, RedirectAttributes redirectAttributes){
@@ -106,11 +109,12 @@ public class AuthController {
 //        return ResponseEntity.ok("You have been logged out successfully 2");
 //    }
 
-//    @GetMapping
-//    public ResponseEntity<Customer> getCurrentUser() {
-//        Customer customer = customerService.getActiveUser();
-//        return ResponseEntity.ok(customer);
-//    }
+    @GetMapping
+    public ResponseEntity<Customer> getCurrentUser(Principal principal) {
+        String email = principal.getName();
+        Customer customer = this.customerRepository.findByEmail(email);
+        return ResponseEntity.ok(customer);
+    }
 
     @GetMapping("/{email}")
     public ResponseEntity<Customer> getCustomer(@PathVariable String email) {
