@@ -1,7 +1,10 @@
 package com.juwelier.webshop.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity(name = "product")
 public class Product {
@@ -11,17 +14,31 @@ public class Product {
     private String name;
     private String imagePath;
     private String description;
-    private double price;
+
+    @OneToMany(mappedBy = "product")
+    @JsonManagedReference
+    private List<ProductProperties> productProperties;
+    private String brand;
     @ManyToOne
     private Category category;
 
 
     public Product() {}
-    public Product(String name, String imagePath, String description, double price, Category category) {
+
+    public Product(String name, String imagePath, String description, List<ProductProperties> productProperties, String brand, Category category) {
         this.name = name;
         this.imagePath = imagePath;
         this.description = description;
-        this.price = price;
+        this.productProperties = productProperties;
+        this.brand = brand;
+        this.category = category;
+    }
+
+    public Product(String name, String imagePath, String description, String brand, Category category) {
+        this.name = name;
+        this.imagePath = imagePath;
+        this.description = description;
+        this.brand = brand;
         this.category = category;
     }
 
@@ -57,12 +74,20 @@ public class Product {
         this.description = description;
     }
 
-    public double getPrice() {
-        return price;
+    public List<ProductProperties> getProductProperties() {
+        return productProperties;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setProductProperties(List<ProductProperties> productProperties) {
+        this.productProperties = productProperties;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public Category getCategory() {

@@ -43,7 +43,8 @@ public class ProductDAO {
                     productDTO.name,
                     productDTO.imagePath,
                     productDTO.description,
-                    productDTO.price,
+                    productDTO.productProperties,
+                    productDTO.brand,
                     category
             );
             this.productRepository.save(newProduct);
@@ -63,7 +64,7 @@ public class ProductDAO {
                 updatedProduct.setName(productDTO.name);
                 updatedProduct.setImagePath(productDTO.imagePath);
                 updatedProduct.setDescription(productDTO.description);
-                updatedProduct.setPrice(productDTO.price);
+//                updatedProduct.setPrice(productDTO.price);
                 updatedProduct.setCategory(category);
                 this.productRepository.save(updatedProduct);
             } else{
