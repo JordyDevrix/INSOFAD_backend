@@ -25,8 +25,7 @@ public class OrderDAO {
         this.customerService = customerService;
     }
 
-    public List<Order> getOrdersByCustomer () {
-        Customer customer = customerService.getActiveUser();
+    public List<Order> getOrdersByCustomer(Customer customer) {
         return this.orderRepository.findAllByCustomer(customer);
     }
 

@@ -1,11 +1,14 @@
 package com.juwelier.webshop.controllers;
 
+import com.juwelier.webshop.dao.CustomerRepository;
 import com.juwelier.webshop.dao.OrderDAO;
 import com.juwelier.webshop.dto.OrderDTO;
+import com.juwelier.webshop.models.Customer;
 import com.juwelier.webshop.models.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,13 +18,18 @@ import java.util.UUID;
 public class OrderController {
     private OrderDAO orderDAO;
 
-    public OrderController(OrderDAO orderDAO) {
+    private CustomerRepository customerRepository;
+
+    public OrderController(OrderDAO orderDAO, CustomerRepository customerRepository) {
         this.orderDAO = orderDAO;
+        this.customerRepository = customerRepository;
     }
 
     @GetMapping
-    public ResponseEntity<List<Order>> getOrders() {
-        return ResponseEntity.ok(this.orderDAO.getOrdersByCustomer());
+    public ResponseEntity<List<Order>> getOrders(Principal principal) {
+        String email = principal.getName();
+        Customer customer = this.customerRepository.findByEmail(email);
+        return ResponseEntity.ok(this.orderDAO.getOrdersByCustomer(customer));
     }
 
     @PostMapping
