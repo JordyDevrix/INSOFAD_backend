@@ -2,6 +2,7 @@ package com.juwelier.webshop.controllers;
 
 import com.juwelier.webshop.dao.ProductDAO;
 import com.juwelier.webshop.dto.ProductDTO;
+import com.juwelier.webshop.dto.ProductPropertiesDTO;
 import com.juwelier.webshop.models.Product;
 import com.juwelier.webshop.utils.Seeder;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,12 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<String> createProduct(@RequestBody ProductDTO productDTO){
         this.productDAO.createProduct(productDTO);
+        return ResponseEntity.ok("Product was successfully created.");
+    }
+
+    @PostMapping("/properties/{productId}")
+    public ResponseEntity<String> createProduct(@PathVariable long productId, @RequestBody ProductPropertiesDTO productPropertiesDTO){
+        this.productDAO.createProductProperties(productId, productPropertiesDTO);
         return ResponseEntity.ok("Product was successfully created.");
     }
 

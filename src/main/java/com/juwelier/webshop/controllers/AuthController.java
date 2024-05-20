@@ -74,41 +74,43 @@ public class AuthController {
         return ResponseEntity.ok(loginResponse);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody AuthenticationDTO body) {
-        try {
-            UsernamePasswordAuthenticationToken authInputToken =
-                    new UsernamePasswordAuthenticationToken(body.email, body.password);
+//    WTF IS DIT????
 
-            authManager.authenticate(authInputToken);
+//    @PostMapping("/login")
+//    public ResponseEntity<LoginResponse> login(@RequestBody AuthenticationDTO body) {
+//        try {
+//            UsernamePasswordAuthenticationToken authInputToken =
+//                    new UsernamePasswordAuthenticationToken(body.email, body.password);
+//
+//            authManager.authenticate(authInputToken);
+//
+//            String token = jwtUtil.generateToken(body.email);
+//
+//            Customer customer = this.customerRepository.findByEmail(body.email);
+//            LoginResponse loginResponse = new LoginResponse(customer.getEmail(), token);
+//
+//
+//            return ResponseEntity.ok(loginResponse);
+//
+//        } catch (AuthenticationException authExc) {
+//            throw new ResponseStatusException(
+//                    HttpStatus.FORBIDDEN, "No valid credentials"
+//            );
+//        }
+//    }
 
-            String token = jwtUtil.generateToken(body.email);
+//    @GetMapping("/logout")
+//    public ResponseEntity<String> logout(HttpSession session, RedirectAttributes redirectAttributes){
+//        session.invalidate();
+//        redirectAttributes.addFlashAttribute("message", "You have been logged out successfully.");
+//        return ResponseEntity.ok("You have been logged out successfully 2");
+//    }
 
-            Customer customer = this.customerRepository.findByEmail(body.email);
-            LoginResponse loginResponse = new LoginResponse(customer.getEmail(), token);
-
-
-            return ResponseEntity.ok(loginResponse);
-
-        } catch (AuthenticationException authExc) {
-            throw new ResponseStatusException(
-                    HttpStatus.FORBIDDEN, "No valid credentials"
-            );
-        }
-    }
-
-    @GetMapping("/logout")
-    public ResponseEntity<String> logout(HttpSession session, RedirectAttributes redirectAttributes){
-        session.invalidate();
-        redirectAttributes.addFlashAttribute("message", "You have been logged out successfully.");
-        return ResponseEntity.ok("You have been logged out successfully 2");
-    }
-
-    @GetMapping
-    public ResponseEntity<Customer> getCurrentUser() {
-        Customer customer = customerService.getActiveUser();
-        return ResponseEntity.ok(customer);
-    }
+//    @GetMapping
+//    public ResponseEntity<Customer> getCurrentUser() {
+//        Customer customer = customerService.getActiveUser();
+//        return ResponseEntity.ok(customer);
+//    }
 
     @GetMapping("/{email}")
     public ResponseEntity<Customer> getCustomer(@PathVariable String email) {

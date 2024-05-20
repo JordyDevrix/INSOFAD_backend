@@ -1,8 +1,10 @@
 package com.juwelier.webshop.dao;
 
 import com.juwelier.webshop.dto.ProductDTO;
+import com.juwelier.webshop.dto.ProductPropertiesDTO;
 import com.juwelier.webshop.models.Category;
 import com.juwelier.webshop.models.Product;
+import com.juwelier.webshop.models.ProductProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,13 +15,14 @@ import java.util.Optional;
 @Component
 public class ProductDAO {
     private ProductRepository productRepository;
+private ProductPropertiesRepository productPropertiesRepository;
     private CategoryRepository categoryRepository;
 
-    public ProductDAO(ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public ProductDAO(ProductRepository productRepository, ProductPropertiesRepository productPropertiesRepository, CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.productPropertiesRepository = productPropertiesRepository;
         this.categoryRepository = categoryRepository;
     }
-
 
     public List<Product> getAllProducts(){
         return this.productRepository.findAll();
@@ -43,7 +46,6 @@ public class ProductDAO {
                     productDTO.name,
                     productDTO.imagePath,
                     productDTO.description,
-                    productDTO.productProperties,
                     productDTO.brand,
                     category
             );
@@ -85,6 +87,23 @@ public class ProductDAO {
         } else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Failed to delete product: Product with ID '" + productId + "' does not exist.");
+        }
+    }
+
+    public void createProductProperties(long productId, ProductPropertiesDTO productPropertiesDTO) {
+        Optional<Product> productOptional = this.productRepository.findById(productId);
+        if (productOptional.isPresent()){
+            ProductProperties newProductProperties = new ProductProperties(
+                    productPropertiesDTO.size,
+                    productPropertiesDTO.color,
+                    productPropertiesDTO.material,
+                    productPropertiesDTO.price
+            );
+            newProductProperties.setProduct(productOptional.get());
+            this.productPropertiesRepository.save(newProductProperties);
+        } else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Failed to create product properties: Product with ID '" + productId + "' does not exist.");
         }
     }
 }
