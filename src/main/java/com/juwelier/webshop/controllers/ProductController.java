@@ -53,4 +53,10 @@ public class ProductController {
         this.productDAO.deleteProductById(productId);
         return ResponseEntity.ok("Product was successfully deleted.");
     }
+
+    @DeleteMapping("/variant/{variantId}")
+    public ResponseEntity<String> deleteVariant(@PathVariable long variantId){
+        this.productDAO.deleteVariantById(variantId);
+        return ResponseEntity.ok("Product was successfully deleted.");
+    }
 }

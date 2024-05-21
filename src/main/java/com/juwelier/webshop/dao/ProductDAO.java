@@ -79,17 +79,6 @@ private ProductPropertiesRepository productPropertiesRepository;
         }
     }
 
-    public void deleteProductById(long productId){
-        Optional<Product> productOptional = this.productRepository.findById(productId);
-        if (productOptional.isPresent()){
-            Product deletedProduct = productOptional.get();
-            this.productRepository.delete(deletedProduct);
-        } else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Failed to delete product: Product with ID '" + productId + "' does not exist.");
-        }
-    }
-
     public void createProductProperties(long productId, ProductPropertiesDTO productPropertiesDTO) {
         Optional<Product> productOptional = this.productRepository.findById(productId);
         if (productOptional.isPresent()){
@@ -104,6 +93,33 @@ private ProductPropertiesRepository productPropertiesRepository;
         } else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Failed to create product properties: Product with ID '" + productId + "' does not exist.");
+        }
+    }
+
+    public void deleteProductById(long productId){
+        Optional<Product> productOptional = this.productRepository.findById(productId);
+        Optional<List<ProductProperties>> productPropertiesOptional = this.productPropertiesRepository.findByProductId(productId);
+        if (productPropertiesOptional.isPresent()){
+            List<ProductProperties> productProperties = productPropertiesOptional.get();
+            this.productPropertiesRepository.deleteAll(productProperties);
+        }
+        if (productOptional.isPresent()){
+            Product deletedProduct = productOptional.get();
+            this.productRepository.delete(deletedProduct);
+        } else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Failed to delete product: Product with ID '" + productId + "' does not exist.");
+        }
+    }
+
+    public void deleteVariantById(long variantId) {
+        Optional<ProductProperties> productPropertiesOptional = this.productPropertiesRepository.findById(variantId);
+        if (productPropertiesOptional.isPresent()){
+            ProductProperties deletedProductProperties = productPropertiesOptional.get();
+            this.productPropertiesRepository.delete(deletedProductProperties);
+        } else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Failed to delete product properties: Product properties with ID '" + variantId + "' does not exist.");
         }
     }
 }
