@@ -34,7 +34,6 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<String> placeOrder(Principal principal, @RequestBody OrderDTO orderDTO) {
-        System.out.println(principal.getName());
         Customer customer = this.customerRepository.findByEmail(principal.getName());
         this.orderDAO.placeOrder(customer, orderDTO);
         return ResponseEntity.ok("Order was successfully placed");

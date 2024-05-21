@@ -44,7 +44,7 @@ public class OrderDAO {
                 "Pending"
         );
         this.orderRepository.save(newOrder);
-        System.out.println(orderDTO.products.getFirst().getPrice());
+
         for (OrderedProduct orderedProduct : orderDTO.products) {
             orderedProduct.setOrder(newOrder);
             OrderedProduct orderedProduct1 = new OrderedProduct();
@@ -55,6 +55,8 @@ public class OrderDAO {
             orderedProduct1.setPrice(orderedProduct.getPrice());
             orderedProduct1.setColor(orderedProduct.getColor());
             orderedProduct1.setMaterial(orderedProduct.getMaterial());
+            orderedProduct1.setSize(orderedProduct.getSize());
+            orderedProduct1.setImagePath(orderedProduct.getImagePath());
 
             this.orderedProductRepository.save(orderedProduct1);
         }
