@@ -29,7 +29,12 @@ public class OrderDAO {
     }
 
     public List<Order> getOrdersByCustomer(Customer customer) {
-        return this.orderRepository.findAllByCustomer(customer);
+        List<Order> orders = this.orderRepository.findAllByCustomer(customer);
+        for (Order order : orders) {
+            System.out.println(this.orderedProductRepository.findAllByOrder(order));
+            order.setProducts(this.orderedProductRepository.findAllByOrder(order));
+        }
+        return orders;
     }
 
     public void placeOrder(Customer customer, OrderDTO orderDTO) {
@@ -42,13 +47,15 @@ public class OrderDAO {
         System.out.println(orderDTO.products.getFirst().getPrice());
         for (OrderedProduct orderedProduct : orderDTO.products) {
             orderedProduct.setOrder(newOrder);
-            OrderedProduct orderedProduct1 = new OrderedProduct(
-                    orderedProduct.getName(),
-                    orderedProduct.getBrand(),
-                    orderedProduct.getPrice(),
-                    newOrder
-            );
+            OrderedProduct orderedProduct1 = new OrderedProduct();
+
             orderedProduct1.setOrder(newOrder);
+            orderedProduct1.setBrand(orderedProduct.getBrand());
+            orderedProduct1.setName(orderedProduct.getName());
+            orderedProduct1.setPrice(orderedProduct.getPrice());
+            orderedProduct1.setColor(orderedProduct.getColor());
+            orderedProduct1.setMaterial(orderedProduct.getMaterial());
+
             this.orderedProductRepository.save(orderedProduct1);
         }
     }
