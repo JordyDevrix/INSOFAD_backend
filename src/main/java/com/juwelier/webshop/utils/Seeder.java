@@ -206,6 +206,7 @@ public class Seeder {
                 "bob@bobsluxuryenterprise.com",
                 encodedPassword
         );
+        customer.setRole("ROLE_ADMIN");
         this.customerRepository.save(customer);
     }
 }

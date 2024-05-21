@@ -13,6 +13,7 @@ public class Customer {
     private String lastName;
     private String email;
     private String password;
+    private String role = "USER";
 
     public Customer() {}
 
@@ -61,5 +62,13 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
     }
 }
