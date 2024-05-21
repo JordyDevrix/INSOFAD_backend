@@ -3,6 +3,7 @@ package com.juwelier.webshop.dao;
 import com.juwelier.webshop.dto.OrderDTO;
 import com.juwelier.webshop.models.Customer;
 import com.juwelier.webshop.models.Order;
+import com.juwelier.webshop.models.OrderedProduct;
 import com.juwelier.webshop.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,25 +19,38 @@ public class OrderDAO {
     private OrderRepository orderRepository;
     private CustomerRepository customerRepository;
     private CustomerService customerService;
+    private OrderedProductRepository orderedProductRepository;
 
-    public OrderDAO(OrderRepository orderRepository, CustomerRepository customerRepository, CustomerService customerService) {
+    public OrderDAO(OrderRepository orderRepository, CustomerRepository customerRepository, CustomerService customerService, OrderedProductRepository orderedProductRepository) {
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.customerService = customerService;
+        this.orderedProductRepository = orderedProductRepository;
     }
 
     public List<Order> getOrdersByCustomer(Customer customer) {
         return this.orderRepository.findAllByCustomer(customer);
     }
 
-    public void placeOrder(OrderDTO orderDTO) {
-        Customer customer = customerService.getActiveUser();
+    public void placeOrder(Customer customer, OrderDTO orderDTO) {
         Order newOrder = new Order(
                 customer,
-                orderDTO.products,
-                orderDTO.totalPrice
+                orderDTO.totalPrice,
+                "Pending"
         );
         this.orderRepository.save(newOrder);
+        System.out.println(orderDTO.products.getFirst().getPrice());
+        for (OrderedProduct orderedProduct : orderDTO.products) {
+            orderedProduct.setOrder(newOrder);
+            OrderedProduct orderedProduct1 = new OrderedProduct(
+                    orderedProduct.getName(),
+                    orderedProduct.getBrand(),
+                    orderedProduct.getPrice(),
+                    newOrder
+            );
+            orderedProduct1.setOrder(newOrder);
+            this.orderedProductRepository.save(orderedProduct1);
+        }
     }
 
     public void updateOrderById(UUID orderId, OrderDTO orderDTO) {

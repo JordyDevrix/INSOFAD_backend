@@ -207,14 +207,5 @@ public class Seeder {
                 encodedPassword
         );
         this.customerRepository.save(customer);
-
-        List<Product> products = Arrays.asList(product1, product2, product3);
-        Order order = new Order(
-                customer,
-                products,
-                5000
-        );
-        this.orderRepository.save(order);
-
     }
 }

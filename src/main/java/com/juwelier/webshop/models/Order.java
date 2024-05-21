@@ -1,5 +1,6 @@
 package com.juwelier.webshop.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonMerge;
 import jakarta.persistence.*;
 
@@ -13,18 +14,26 @@ public class Order {
     private UUID id;
     @ManyToOne
     private Customer customer;
-    @ManyToMany
-    private List<Product> products;
+    @OneToMany
+    @JsonManagedReference
+    private List<OrderedProduct> products;
     private double totalPrice;
     private String orderStatus = "Processing...";
 
     public Order() {}
-    public Order(Customer customer, List<Product> products, double totalPrice) {
+
+    public Order(Customer customer, List<OrderedProduct> products, double totalPrice, String orderStatus) {
         this.customer = customer;
         this.products = products;
         this.totalPrice = totalPrice;
+        this.orderStatus = orderStatus;
     }
 
+    public Order(Customer customer, double totalPrice, String orderStatus) {
+        this.customer = customer;
+        this.totalPrice = totalPrice;
+        this.orderStatus = orderStatus;
+    }
 
     public UUID getId() {
         return id;
@@ -42,11 +51,11 @@ public class Order {
         this.customer = customer;
     }
 
-    public List<Product> getProducts() {
+    public List<OrderedProduct> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<OrderedProduct> products) {
         this.products = products;
     }
 
