@@ -37,7 +37,7 @@ public class ProductController {
     }
 
     @PostMapping("/properties/{productId}")
-    public ResponseEntity<String> createProduct(@PathVariable long productId, @RequestBody ProductPropertiesDTO productPropertiesDTO){
+    public ResponseEntity<String> createVariant(@PathVariable long productId, @RequestBody ProductPropertiesDTO productPropertiesDTO){
         this.productDAO.createProductProperties(productId, productPropertiesDTO);
         return ResponseEntity.ok("Product was successfully created.");
     }
