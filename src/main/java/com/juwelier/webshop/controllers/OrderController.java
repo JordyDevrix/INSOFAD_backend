@@ -32,6 +32,15 @@ public class OrderController {
         return ResponseEntity.ok(this.orderDAO.getOrdersByCustomer(customer));
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<Order>> getAllOrders() {
+        List<Order> orders = this.orderDAO.getAllOrders();
+        for (Order order : orders) {
+            System.out.println(order);
+        }
+        return ResponseEntity.ok(orders);
+    }
+
     @PostMapping
     public ResponseEntity<String> placeOrder(Principal principal, @RequestBody OrderDTO orderDTO) {
         Customer customer = this.customerRepository.findByEmail(principal.getName());

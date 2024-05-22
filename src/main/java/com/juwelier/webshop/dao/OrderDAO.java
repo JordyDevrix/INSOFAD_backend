@@ -96,4 +96,8 @@ public class OrderDAO {
                     "Failed to delete order: Order with ID: '" + orderId + "' does not exist.");
         }
     }
+
+    public List<Order> getAllOrders() {
+        return this.orderRepository.findAll();
+    }
 }
