@@ -1,9 +1,7 @@
 package com.juwelier.webshop.dao;
 
 import com.juwelier.webshop.dto.OrderDTO;
-import com.juwelier.webshop.models.Customer;
-import com.juwelier.webshop.models.Order;
-import com.juwelier.webshop.models.OrderedProduct;
+import com.juwelier.webshop.models.*;
 import com.juwelier.webshop.services.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +18,14 @@ public class OrderDAO {
     private CustomerRepository customerRepository;
     private CustomerService customerService;
     private OrderedProductRepository orderedProductRepository;
+    private ProductRepository productRepository;
 
-    public OrderDAO(OrderRepository orderRepository, CustomerRepository customerRepository, CustomerService customerService, OrderedProductRepository orderedProductRepository) {
+    public OrderDAO(OrderRepository orderRepository, CustomerRepository customerRepository, CustomerService customerService, OrderedProductRepository orderedProductRepository, ProductRepository productRepository) {
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.customerService = customerService;
         this.orderedProductRepository = orderedProductRepository;
+        this.productRepository = productRepository;
     }
 
     public List<Order> getOrdersByCustomer(Customer customer) {
@@ -41,7 +41,7 @@ public class OrderDAO {
         Order newOrder = new Order(
                 customer,
                 orderDTO.totalPrice,
-                "Pending"
+                "Succes"
         );
         this.orderRepository.save(newOrder);
 
@@ -57,6 +57,19 @@ public class OrderDAO {
             orderedProduct1.setMaterial(orderedProduct.getMaterial());
             orderedProduct1.setSize(orderedProduct.getSize());
             orderedProduct1.setImagePath(orderedProduct.getImagePath());
+            Optional<Product> oproduct = this.productRepository.findById(orderedProduct.getId());
+            if (oproduct.isPresent()) {
+                Product product = oproduct.get();
+                List<ProductProperties> productProperties = product.getProductProperties();
+                for (ProductProperties productProperty : productProperties) {
+                    if (productProperty.getColor().equals(orderedProduct.getColor()) &&
+                            productProperty.getMaterial().equals(orderedProduct.getMaterial()) &&
+                            productProperty.getSize().equals(orderedProduct.getSize())) {
+                        productProperty.setStock(productProperty.getStock() - 1);
+                    }
+                }
+
+            }
 
             this.orderedProductRepository.save(orderedProduct1);
         }
