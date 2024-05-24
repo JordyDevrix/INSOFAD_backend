@@ -86,7 +86,8 @@ private ProductPropertiesRepository productPropertiesRepository;
                     productPropertiesDTO.size,
                     productPropertiesDTO.color,
                     productPropertiesDTO.material,
-                    productPropertiesDTO.price
+                    productPropertiesDTO.price,
+                    productPropertiesDTO.stock
             );
             newProductProperties.setProduct(productOptional.get());
             this.productPropertiesRepository.save(newProductProperties);

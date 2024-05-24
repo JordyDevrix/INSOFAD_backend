@@ -50,9 +50,9 @@ public class Seeder {
                 category1
         );
         this.productRepository.save(product1);
-        ProductProperties prop1 = new ProductProperties("S", "Gold", "Gold", product1, 40000.00);
-        ProductProperties prop2 = new ProductProperties("M", "Gold", "Gold", product1,40001.00);
-        ProductProperties prop3 = new ProductProperties("X", "Gold", "Gold", product1,40002.00);
+        ProductProperties prop1 = new ProductProperties("S", "Gold", "Gold", product1, 40000.00, 400);
+        ProductProperties prop2 = new ProductProperties("M", "Gold", "Gold", product1,40001.00, 400);
+        ProductProperties prop3 = new ProductProperties("X", "Gold", "Gold", product1,40002.00, 400);
         this.productPropertiesRepository.save(prop1);
         this.productPropertiesRepository.save(prop2);
         this.productPropertiesRepository.save(prop3);
@@ -66,9 +66,9 @@ public class Seeder {
                 category3
         );
         this.productRepository.save(product2);
-        ProductProperties prop4 = new ProductProperties("S", "Gold", "Gold", product2, 15000.00);
-        ProductProperties prop5 = new ProductProperties("M", "Gold", "Gold", product2, 15000.00);
-        ProductProperties prop6 = new ProductProperties("X", "Gold", "Gold", product2, 15000.00);
+        ProductProperties prop4 = new ProductProperties("S", "Gold", "Gold", product2, 15000.00, 400);
+        ProductProperties prop5 = new ProductProperties("M", "Gold", "Gold", product2, 15000.00, 400);
+        ProductProperties prop6 = new ProductProperties("X", "Gold", "Gold", product2, 15000.00, 400);
         this.productPropertiesRepository.save(prop4);
         this.productPropertiesRepository.save(prop5);
         this.productPropertiesRepository.save(prop6);
@@ -81,10 +81,10 @@ public class Seeder {
                 category2
         );
         this.productRepository.save(product3);
-        ProductProperties prop7 = new ProductProperties("S", "Diamond", "Diamond", product3, 125000.00);
-        ProductProperties prop8 = new ProductProperties("M", "Diamond", "Diamond", product3, 125000.00);
-        ProductProperties prop9 = new ProductProperties("X", "Diamond", "Diamond", product3, 125000.00);
-        ProductProperties prop10 = new ProductProperties("XL", "Diamond", "Diamond", product3, 125000.00);
+        ProductProperties prop7 = new ProductProperties("S", "Diamond", "Diamond", product3, 125000.00, 400);
+        ProductProperties prop8 = new ProductProperties("M", "Diamond", "Diamond", product3, 125000.00, 400);
+        ProductProperties prop9 = new ProductProperties("X", "Diamond", "Diamond", product3, 125000.00, 400);
+        ProductProperties prop10 = new ProductProperties("XL", "Diamond", "Diamond", product3, 125000.00, 400);
         this.productPropertiesRepository.save(prop7);
         this.productPropertiesRepository.save(prop8);
         this.productPropertiesRepository.save(prop9);
@@ -98,9 +98,9 @@ public class Seeder {
                 category1
         );
         this.productRepository.save(product4);
-        ProductProperties prop11 = new ProductProperties("S", "Brown", "Leather", product4, 20000.00);
-        ProductProperties prop12 = new ProductProperties("M", "Brown", "Leather", product4, 20000.00);
-        ProductProperties prop13 = new ProductProperties("X", "Brown", "Leather", product4, 20000.00);
+        ProductProperties prop11 = new ProductProperties("S", "Brown", "Leather", product4, 20000.00, 400);
+        ProductProperties prop12 = new ProductProperties("M", "Brown", "Leather", product4, 20000.00, 400);
+        ProductProperties prop13 = new ProductProperties("X", "Brown", "Leather", product4, 20000.00, 400);
         this.productPropertiesRepository.save(prop11);
         this.productPropertiesRepository.save(prop12);
         this.productPropertiesRepository.save(prop13);
@@ -113,9 +113,9 @@ public class Seeder {
                 category3
         );
         this.productRepository.save(product5);
-        ProductProperties prop14 = new ProductProperties("S", "Silver", "Silver", product5, 550000.00);
-        ProductProperties prop15 = new ProductProperties("M", "Silver", "Silver", product5, 550000.00);
-        ProductProperties prop16 = new ProductProperties("X", "Silver", "Silver", product5, 550000.00);
+        ProductProperties prop14 = new ProductProperties("S", "Silver", "Silver", product5, 550000.00, 400);
+        ProductProperties prop15 = new ProductProperties("M", "Silver", "Silver", product5, 550000.00, 400);
+        ProductProperties prop16 = new ProductProperties("X", "Silver", "Silver", product5, 550000.00, 400);
         this.productPropertiesRepository.save(prop14);
         this.productPropertiesRepository.save(prop15);
         this.productPropertiesRepository.save(prop16);
@@ -128,9 +128,9 @@ public class Seeder {
                 category4
         );
         this.productRepository.save(product6);
-        ProductProperties prop17 = new ProductProperties("S", "Gold", "Gold", product6, 95000.00);
-        ProductProperties prop18 = new ProductProperties("M", "Gold", "Gold", product6, 95000.00);
-        ProductProperties prop19 = new ProductProperties("X", "Gold", "Gold", product6, 95000.00);
+        ProductProperties prop17 = new ProductProperties("S", "Gold", "Gold", product6, 95000.00, 400);
+        ProductProperties prop18 = new ProductProperties("M", "Gold", "Gold", product6, 95000.00, 400);
+        ProductProperties prop19 = new ProductProperties("X", "Gold", "Gold", product6, 95000.00, 400);
         this.productPropertiesRepository.save(prop17);
         this.productPropertiesRepository.save(prop18);
         this.productPropertiesRepository.save(prop19);
@@ -143,7 +143,7 @@ public class Seeder {
                 category4
         );
         this.productRepository.save(product7);
-        ProductProperties prop20 = new ProductProperties("One size fits all", "Diamond", "Diamond", product7, 820000.00);
+        ProductProperties prop20 = new ProductProperties("One size fits all", "Diamond", "Diamond", product7, 820000.00, 400);
         this.productPropertiesRepository.save(prop20);
 
         Product product8 = new Product(
@@ -154,10 +154,10 @@ public class Seeder {
                 category4
         );
         this.productRepository.save(product8);
-        ProductProperties prop21 = new ProductProperties("S", "Black", "Leather", product8, 62000.00);
-        ProductProperties prop22 = new ProductProperties("M", "Black", "Leather", product8, 62000.00);
-        ProductProperties prop23 = new ProductProperties("X", "Black", "Leather", product8, 62000.00);
-        ProductProperties prop24 = new ProductProperties("XL", "Black", "Leather", product8, 62000.00);
+        ProductProperties prop21 = new ProductProperties("S", "Black", "Leather", product8, 62000.00, 400);
+        ProductProperties prop22 = new ProductProperties("M", "Black", "Leather", product8, 62000.00, 400);
+        ProductProperties prop23 = new ProductProperties("X", "Black", "Leather", product8, 62000.00, 400);
+        ProductProperties prop24 = new ProductProperties("XL", "Black", "Leather", product8, 62000.00, 400);
         this.productPropertiesRepository.save(prop21);
         this.productPropertiesRepository.save(prop22);
         this.productPropertiesRepository.save(prop23);
@@ -171,10 +171,10 @@ public class Seeder {
                 category2
         );
         this.productRepository.save(product9);
-        ProductProperties prop25 = new ProductProperties("S", "Gold", "Gold", product9, 160000.00);
-        ProductProperties prop26 = new ProductProperties("M", "Gold", "Gold", product9, 160000.00);
-        ProductProperties prop27 = new ProductProperties("X", "Gold", "Gold", product9, 160000.00);
-        ProductProperties prop28 = new ProductProperties("XL", "Gold", "Gold", product9, 160000.00);
+        ProductProperties prop25 = new ProductProperties("S", "Gold", "Gold", product9, 160000.00, 400);
+        ProductProperties prop26 = new ProductProperties("M", "Gold", "Gold", product9, 160000.00, 400);
+        ProductProperties prop27 = new ProductProperties("X", "Gold", "Gold", product9, 160000.00, 400);
+        ProductProperties prop28 = new ProductProperties("XL", "Gold", "Gold", product9, 160000.00, 400);
         this.productPropertiesRepository.save(prop25);
         this.productPropertiesRepository.save(prop26);
         this.productPropertiesRepository.save(prop27);
@@ -188,10 +188,10 @@ public class Seeder {
                 category2
         );
         this.productRepository.save(product10);
-        ProductProperties prop29 = new ProductProperties("S", "Gold", "Gold", product10, 0.00);
-        ProductProperties prop30 = new ProductProperties("M", "Gold", "Gold", product10, 0.00);
-        ProductProperties prop31 = new ProductProperties("X", "Gold", "Gold", product10, 0.00);
-        ProductProperties prop32 = new ProductProperties("XL", "Gold", "Gold", product10, 0.00);
+        ProductProperties prop29 = new ProductProperties("S", "Gold", "Gold", product10, 0.00, 400);
+        ProductProperties prop30 = new ProductProperties("M", "Gold", "Gold", product10, 0.00, 400);
+        ProductProperties prop31 = new ProductProperties("X", "Gold", "Gold", product10, 0.00, 400);
+        ProductProperties prop32 = new ProductProperties("XL", "Gold", "Gold", product10, 0.00, 400);
         this.productPropertiesRepository.save(prop29);
         this.productPropertiesRepository.save(prop30);
         this.productPropertiesRepository.save(prop31);

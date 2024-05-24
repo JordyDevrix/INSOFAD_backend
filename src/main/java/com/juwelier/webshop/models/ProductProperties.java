@@ -17,6 +17,9 @@ public class ProductProperties {
     private String color;
 
     private String material;
+
+    private long stock;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JsonBackReference
     private Product product;
@@ -24,19 +27,21 @@ public class ProductProperties {
 
     public ProductProperties() {}
 
-    public ProductProperties(String size, String color, String material, Product product, double price) {
+public ProductProperties(String size, String color, String material, Product product, double price, long stock) {
         this.size = size;
         this.color = color;
         this.material = material;
         this.product = product;
         this.price = price;
+        this.stock = stock;
     }
 
-    public ProductProperties(String size, String color, String material, double price) {
+    public ProductProperties(String size, String color, String material, double price, long stock) {
         this.size = size;
         this.color = color;
         this.material = material;
         this.price = price;
+        this.stock = stock;
     }
 
     public long getId() {
@@ -85,5 +90,13 @@ public class ProductProperties {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public long getStock() {
+        return stock;
+    }
+
+    public void setStock(long stock) {
+        this.stock = stock;
     }
 }

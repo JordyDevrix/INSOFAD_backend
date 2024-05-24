@@ -6,11 +6,13 @@ public class ProductPropertiesDTO {
     public String material;
     public double price;
 
-    public ProductPropertiesDTO(String size, String color, String material, double price) {
+    public long stock;
+
+    public ProductPropertiesDTO(String size, String color, String material, double price, long stock) {
         this.size = size;
         this.color = color;
         this.material = material;
         this.price = price;
+        this.stock = stock;
     }
-
 }
