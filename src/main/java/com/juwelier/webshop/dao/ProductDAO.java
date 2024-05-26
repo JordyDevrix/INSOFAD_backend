@@ -123,4 +123,28 @@ private ProductPropertiesRepository productPropertiesRepository;
                     "Failed to delete product properties: Product properties with ID '" + variantId + "' does not exist.");
         }
     }
+
+    public void buyStockById(long propertyId) {
+        Optional<ProductProperties> productPropertiesOptional = this.productPropertiesRepository.findById(propertyId);
+        if (productPropertiesOptional.isPresent()){
+            ProductProperties productProperties = productPropertiesOptional.get();
+            productProperties.setStock(productProperties.getStock() + 1);
+            this.productPropertiesRepository.save(productProperties);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Failed to buy stock: Product with ID '" + propertyId + "' does not exist.");
+        }
+    }
+
+    public void buyStockAmountById(long propertyId, long amount) {
+        Optional<ProductProperties> productPropertiesOptional = this.productPropertiesRepository.findById(propertyId);
+        if (productPropertiesOptional.isPresent()){
+            ProductProperties productProperties = productPropertiesOptional.get();
+            productProperties.setStock(productProperties.getStock() + amount);
+            this.productPropertiesRepository.save(productProperties);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Failed to buy stock: Product with ID '" + propertyId + "' does not exist.");
+        }
+    }
 }

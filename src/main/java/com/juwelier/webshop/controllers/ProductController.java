@@ -48,6 +48,20 @@ public class ProductController {
         return ResponseEntity.ok("Product was successfully updated.");
     }
 
+    @PutMapping("properties/{propertyId}")
+    public ResponseEntity<String> buyStock(@PathVariable long propertyId, @RequestBody ProductPropertiesDTO productPropertiesDTO){
+        System.out.println(propertyId);
+        this.productDAO.buyStockById(propertyId);
+        return ResponseEntity.ok("Product was bought");
+    }
+
+    @PutMapping("properties/{propertyId}/{amount}")
+    public ResponseEntity<String> buyStockAmount(@PathVariable long propertyId, @RequestBody ProductPropertiesDTO productPropertiesDTO, @PathVariable long amount){
+        System.out.println(propertyId);
+        this.productDAO.buyStockAmountById(propertyId, amount);
+        return ResponseEntity.ok("Product was bought");
+    }
+
     @DeleteMapping("/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable long productId){
         this.productDAO.deleteProductById(productId);
