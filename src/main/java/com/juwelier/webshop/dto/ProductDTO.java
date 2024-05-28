@@ -23,4 +23,7 @@ public class ProductDTO {
         this.brand = brand;
         this.categoryId = categoryId;
     }
+
+    public ProductDTO(String testProduct, String imagePath, String testDescription, String testBrand, long categoryId) {
+    }
 }
